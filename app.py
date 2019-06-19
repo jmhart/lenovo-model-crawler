@@ -1,9 +1,12 @@
-import requests
-import json
+from Models import Models
+from api import get_model_name
 
-url = "https://support.lenovo.com/us/en/api/mse/getproducts?productId=10FVS0KX01"
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
-response = requests.get(url, headers=headers).json()
+models = Models()
+model_ids = models.model_ids
 
-print(response[0]["Name"])
+model_names = []
+for model_id in model_ids:
+    print(model_id)
+    model_names.append((model_id, get_model_name(model_id)))
+
+models.write_model_names(model_names)
